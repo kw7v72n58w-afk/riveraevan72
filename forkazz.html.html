@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Kazanndra ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Card container */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            max-width: 480px;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+        }
+        h1 {
+            color: #d63384;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .letter {
+            color: #444;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        button {
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+        }
+        .btn-yes {
+            background-color: #ff4b2b;
+            color: white;
+        }
+        .btn-yes:hover {
+            background-color: #ff416c;
+            transform: scale(1.05);
+        }
+        .btn-no {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        #response-message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #d63384;
+            font-size: 1.1rem;
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            color: rgba(255, 75, 43, 0.6);
+            font-size: 20px;
+            animation: float 6s linear infinite;
+            z-index: 1;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Music Controls */
+        .music-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bg-music" autoplay loop>
+        <source src="music.mp3.mp3" type="audio/mpeg">
+    </audio>
+    
+    <button class="music-btn" onclick="toggleMusic()" id="music-control">🎵</button>
+
+    <!-- Confession Card -->
+    <div class="card">
+        <h1>Hey Kazanndra ✨</h1>
+        
+        <div class="letter">
+I know we haven't really interacted in person yet, but I just wanted to be honest and say that I have a crush on you. I really admire your vibe and think you seem like a genuine, awesome person.
+
+I’d love the chance to get to know you more whenever you're open to it. There’s absolutely no pressure or rush at all—I just wanted to let you know how I feel. Also, just know that I'm always here for you if you ever need someone to talk to.
+
+May I court you in the future?
+        </div>
+        
+        <div class="buttons">
+            <button class="btn-yes" onclick="acceptOffer()">Yes! ❤️</button>
+            <button class="btn-no" id="no-btn" onmouseover="dodgeButton()" onclick="dodgeButton()">No</button>
+        </div>
+
+        <div id="response-message"></div>
+    </div>
+
+    <script>
+        // Music toggle
+        const music = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                document.getElementById('music-control').innerText = '🎵';
+            } else {
+                music.play();
+                document.getElementById('music-control').innerText = '⏸️';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Accept offer logic
+        function acceptOffer() {
+            document.getElementById('response-message').innerText = "You just made my day! 🥰 I'm looking forward to getting to know you!";
+            
+            if (!isPlaying) {
+                toggleMusic();
+            }
+        }
+
+        // Runaway 'No' button logic
+        function dodgeButton() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+            btn.style.position = 'fixed';
+            btn.style.left = `${x}px`;
+            btn.style.top = `${y}px`;
+        }
+
+        // Generate floating hearts automatically
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
